@@ -21,25 +21,31 @@
       -webkit-tap-highlight-color: transparent;
     }
 
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
     body {
       background: linear-gradient(135deg, #fff0f3 0%, #ffdde1 50%, #fbc2eb 100%);
       font-family: 'Montserrat', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      overflow: hidden;
+      padding: 20px 10px;
       color: #8c3a5c;
       position: relative;
     }
 
     /* Floating Hearts Background */
     #hearts-bg {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
       pointer-events: none;
       overflow: hidden;
       z-index: 1;
@@ -53,6 +59,7 @@
       user-select: none;
       pointer-events: none;
       animation: floatUp 8s linear infinite;
+      will-change: transform, opacity;
     }
 
     @keyframes floatUp {
@@ -77,59 +84,49 @@
       font-size: 1.8rem;
       user-select: none;
       animation: burstPetal 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+      will-change: transform, opacity;
     }
 
     @keyframes burstPetal {
-      0% {
-        opacity: 0;
-        transform: translate(0, 0) scale(0.3) rotate(0deg);
-      }
-      30% {
-        opacity: 1;
-      }
-      100% {
-        opacity: 0;
-        transform: translate(var(--twX), var(--twY)) scale(1.5) rotate(var(--rot));
-      }
+      0% { opacity: 0; transform: translate(0, 0) scale(0.3) rotate(0deg); }
+      30% { opacity: 1; }
+      100% { opacity: 0; transform: translate(var(--twX), var(--twY)) scale(1.5) rotate(var(--rot)); }
     }
 
     /* Main Container Card */
     .app-container {
-      width: 90%;
-      max-width: 380px;
-      height: 620px;
+      width: 100%;
+      max-width: 420px;
+      min-height: 550px;
       position: relative;
       z-index: 10;
+      margin: auto;
     }
 
     .slide {
-      position: absolute;
-      top: 0;
-      left: 0;
       width: 100%;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-radius: 28px;
-      padding: 20px 18px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 24px;
+      padding: 24px 20px;
       text-align: center;
-      box-shadow: 0 15px 35px rgba(220, 140, 165, 0.25), 
+      box-shadow: 0 12px 30px rgba(220, 140, 165, 0.2), 
                   inset 0 0 0 1px rgba(255, 255, 255, 0.9);
-      display: flex;
+      display: none;
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
+      gap: 20px;
       opacity: 0;
-      visibility: hidden;
-      transform: scale(0.92);
-      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform: translateY(15px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
     }
 
     .slide.active {
+      display: flex;
       opacity: 1;
-      visibility: visible;
-      transform: scale(1);
+      transform: translateY(0);
     }
 
     .slide-content {
@@ -138,11 +135,10 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      flex-grow: 1;
-      gap: 10px;
+      gap: 15px;
     }
 
-    /* Slide 1 Cover */
+    /* SLIDE 1 COVER */
     .wreath-container {
       position: relative;
       width: 190px;
@@ -150,6 +146,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      margin: 10px 0;
     }
 
     .wreath-svg {
@@ -167,17 +164,17 @@
     }
 
     .sub-title {
-      font-size: 0.7rem;
+      font-size: 0.75rem;
       letter-spacing: 2px;
       color: #c0738a;
       text-transform: uppercase;
-      margin-bottom: 2px;
+      margin-bottom: 4px;
       font-weight: 600;
     }
 
     .main-title {
       font-family: 'Great Vibes', cursive;
-      font-size: 2.5rem;
+      font-size: 2.6rem;
       color: #8c3a5c;
       line-height: 1.1;
     }
@@ -185,11 +182,11 @@
     .info-section {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 6px;
     }
 
     .duration {
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       font-weight: 700;
       color: #8c3a5c;
     }
@@ -214,13 +211,13 @@
       opacity: 0.85;
     }
 
-    /* Slide Pin */
+    /* SLIDE PIN */
     .pin-box {
-      background: rgba(255, 255, 255, 0.7);
-      padding: 20px;
+      background: rgba(255, 255, 255, 0.75);
+      padding: 20px 15px;
       border-radius: 20px;
       border: 1px solid rgba(255, 255, 255, 0.9);
-      box-shadow: 0 8px 20px rgba(216, 129, 157, 0.2);
+      box-shadow: 0 6px 16px rgba(216, 129, 157, 0.15);
       width: 100%;
       display: flex;
       flex-direction: column;
@@ -231,7 +228,7 @@
     .pin-display {
       display: flex;
       gap: 10px;
-      margin: 10px 0;
+      margin: 5px 0;
     }
 
     .pin-dot {
@@ -253,35 +250,35 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 12px;
       width: 100%;
-      max-width: 220px;
+      max-width: 230px;
     }
 
     .pin-btn {
       aspect-ratio: 1;
       border-radius: 50%;
       border: none;
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255, 0.95);
       color: #8c3a5c;
       font-size: 1.2rem;
       font-weight: 600;
       cursor: pointer;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.08);
-      transition: all 0.2s ease;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+      transition: background 0.2s ease, transform 0.1s ease;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
     .pin-btn:active {
-      transform: scale(0.9);
+      transform: scale(0.92);
       background: #f4acb7;
       color: white;
     }
 
     .pin-error-msg {
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       color: #e63946;
-      height: 16px;
+      min-height: 18px;
       font-weight: 600;
     }
 
@@ -291,14 +288,12 @@
       40%, 80% { transform: translateX(8px); }
     }
 
-    .shake {
-      animation: shake 0.4s ease-in-out;
-    }
+    .shake { animation: shake 0.4s ease-in-out; }
 
-    /* Slide 2 Letter */
+    /* SLIDE 2 LETTER */
     .letter-header {
       font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
+      font-size: 1.45rem;
       color: #6d2d48;
       font-weight: 600;
     }
@@ -310,48 +305,37 @@
 
     .letter-body {
       text-align: left;
-      font-size: 0.78rem;
-      line-height: 1.45;
+      font-size: 0.82rem;
+      line-height: 1.6;
       color: #5a273e;
-      background: rgba(255, 255, 255, 0.6);
-      padding: 12px;
+      background: rgba(255, 255, 255, 0.65);
+      padding: 15px;
       border-radius: 18px;
       border: 1px solid rgba(255, 255, 255, 0.9);
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      max-height: 380px;
-      overflow-y: auto;
+      gap: 12px;
+      width: 100%;
     }
 
     .photo-frame {
-      width: 75px;
-      height: 75px;
+      width: 80px;
+      height: 80px;
       background: white;
       padding: 4px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
       border: 1px solid #f4acb7;
       object-fit: cover;
     }
 
-    .float-left {
-      float: left;
-      margin: 2px 10px 4px 0;
-      transform: rotate(-4deg);
-    }
+    .float-left { float: left; margin: 2px 10px 4px 0; transform: rotate(-4deg); }
+    .float-right { float: right; margin: 2px 0 4px 10px; transform: rotate(4deg); }
 
-    .float-right {
-      float: right;
-      margin: 2px 0 4px 10px;
-      transform: rotate(4deg);
-    }
-
-    /* Slide 3: Puzzle */
+    /* SLIDE 3 PUZZLE */
     .puzzle-instructions {
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       color: #8c3a5c;
-      margin-bottom: 5px;
     }
 
     .puzzle-board {
@@ -364,16 +348,17 @@
       background: #f4acb7;
       padding: 4px;
       border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(216, 129, 157, 0.3);
-      transition: all 0.5s ease-in-out;
+      box-shadow: 0 8px 20px rgba(216, 129, 157, 0.25);
+      transition: all 0.4s ease;
       overflow: hidden;
+      margin: 10px 0;
     }
 
     .puzzle-board.solved {
       gap: 0px;
       padding: 0px;
-      transform: scale(1.05);
-      box-shadow: 0 0 25px rgba(244, 172, 183, 0.9), 0 0 12px rgba(255, 255, 255, 0.8);
+      transform: scale(1.03);
+      box-shadow: 0 0 25px rgba(244, 172, 183, 0.9);
       border-radius: 12px;
     }
 
@@ -383,7 +368,7 @@
       background-size: 232px 232px;
       border-radius: 6px;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: transform 0.2s ease, outline 0.2s ease;
     }
 
     .puzzle-board.solved .puzzle-piece {
@@ -394,25 +379,225 @@
 
     .puzzle-piece.selected {
       outline: 3px solid #8c3a5c;
-      transform: scale(0.95);
+      transform: scale(0.94);
     }
 
-    /* Slide 4 Quote */
+    /* SLIDE 4 TIMELINE GALLERY */
+    .timeline-container {
+      width: 100%;
+      padding: 10px 5px 10px 20px;
+      position: relative;
+    }
+
+    .timeline-container::before {
+      content: '';
+      position: absolute;
+      top: 15px;
+      bottom: 15px;
+      left: 10px;
+      width: 2px;
+      background: #f4acb7;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline-icon {
+      position: absolute;
+      left: -22px;
+      top: 2px;
+      width: 22px;
+      height: 22px;
+      background: #ffffff;
+      border: 2px solid #f4acb7;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      z-index: 2;
+    }
+
+    .timeline-card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 16px;
+      padding: 14px;
+      text-align: left;
+      box-shadow: 0 4px 12px rgba(216, 129, 157, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+    }
+
+    .timeline-tag {
+      font-size: 0.75rem;
+      letter-spacing: 1.5px;
+      font-weight: 700;
+      color: #c0738a;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .timeline-img-box {
+      width: 100%;
+      height: 150px;
+      background: #fff0f3;
+      border: 2px dashed #f4acb7;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .timeline-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .timeline-img-placeholder {
+      font-size: 0.75rem;
+      color: #a25872;
+      text-align: center;
+      padding: 8px;
+    }
+
+    .timeline-desc {
+      font-size: 0.78rem;
+      line-height: 1.45;
+      color: #6d2d48;
+    }
+
+    /* SLIDE PHOTO BOOTH SLIDER */
+    .booth-container {
+      width: 100%;
+      position: relative;
+      margin: 10px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .booth-slider-wrapper {
+      width: 100%;
+      overflow: hidden;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(216, 129, 157, 0.25);
+      background: #ffffff;
+      border: 4px solid #ffffff;
+    }
+
+    .booth-slider {
+      display: flex;
+      transition: transform 0.4s ease-in-out;
+      width: 100%;
+    }
+
+    .booth-slide-item {
+      min-width: 100%;
+      height: 320px;
+      background: #fff0f3;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .booth-slide-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .booth-nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid #f4acb7;
+      color: #8c3a5c;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: background 0.2s ease;
+    }
+
+    .booth-nav-btn:active {
+      background: #f4acb7;
+      color: white;
+    }
+
+    .booth-nav-btn.prev { left: 8px; }
+    .booth-nav-btn.next { right: 8px; }
+
+    .booth-dots {
+      display: flex;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .booth-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #f4acb7;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .booth-dot.active {
+      background: #8c3a5c;
+      width: 20px;
+      border-radius: 10px;
+    }
+
+    /* SLIDE PENUTUP */
+    .closing-card {
+      background: rgba(255, 255, 255, 0.75);
+      padding: 22px 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 6px 16px rgba(216, 129, 157, 0.12);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      width: 100%;
+    }
+
     .quote-box {
       font-family: 'Caveat', cursive;
-      font-size: 1.4rem;
+      font-size: 1.45rem;
       color: #8c3a5c;
-      line-height: 1.35;
-      background: rgba(255, 255, 255, 0.5);
-      padding: 18px;
-      border-radius: 18px;
-      border: 1px dashed #f4acb7;
+      line-height: 1.4;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 16px;
+      border-radius: 16px;
+      border: 1.5px dashed #f4acb7;
     }
 
     .big-heart {
-      font-size: 3.5rem;
-      animation: pulse 1.5s infinite ease-in-out;
+      font-size: 3.2rem;
+      animation: pulse 1.4s infinite ease-in-out;
       cursor: pointer;
+      user-select: none;
     }
 
     @keyframes pulse {
@@ -425,37 +610,31 @@
       background: linear-gradient(135deg, #f4acb7 0%, #d8819d 100%);
       color: white;
       border: none;
-      padding: 10px 26px;
+      padding: 12px 26px;
       border-radius: 25px;
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       font-weight: 600;
       cursor: pointer;
-      box-shadow: 0 5px 15px rgba(216, 129, 157, 0.4);
-      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(216, 129, 157, 0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
       display: inline-flex;
       align-items: center;
       gap: 8px;
     }
 
-    .btn-action:active {
-      transform: scale(0.95);
-    }
-
-    .btn-action:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
+    .btn-action:active { transform: scale(0.95); }
+    .btn-action:disabled { opacity: 0.55; cursor: not-allowed; }
 
     .dots-indicator {
       display: flex;
-      gap: 8px;
-      margin-top: 8px;
+      gap: 6px;
+      margin-top: 12px;
       justify-content: center;
     }
 
     .dot {
-      width: 8px;
-      height: 8px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       background: #e8b4c3;
       transition: all 0.3s ease;
@@ -463,17 +642,17 @@
 
     .dot.active {
       background: #8c3a5c;
-      width: 20px;
+      width: 18px;
       border-radius: 10px;
     }
 
-    /* Music Button Control */
+    /* Music Control Toggle */
     .music-btn {
       position: fixed;
       top: 15px;
       right: 15px;
       z-index: 10000;
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.9);
       border: 1px solid #f4acb7;
       border-radius: 50%;
       width: 42px;
@@ -482,13 +661,14 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
       font-size: 1.2rem;
     }
 
-    /* Hidden YouTube Player Frame */
     #ytPlayer {
-      position: absolute;
+      position: fixed;
+      top: -9999px;
+      left: -9999px;
       width: 1px;
       height: 1px;
       opacity: 0;
@@ -551,6 +731,8 @@
           <span class="dot"></span>
           <span class="dot"></span>
           <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
         </div>
       </div>
     </div>
@@ -595,6 +777,8 @@
           <span class="dot"></span>
           <span class="dot"></span>
           <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
         </div>
       </div>
     </div>
@@ -611,7 +795,7 @@
 
         <div class="letter-body">
           <p>
-            <img src="f4.jpg" alt="Foto KITA 1" class="photo-frame float-left">
+            <img src="f4.jpg" alt="Foto KITA 1" class="photo-frame float-left" onerror="this.style.display='none';">
             Happy anniversary untuk kita. Terima kasih sudah hadir dan membuat banyak cerita indah selama ini.
           </p>
 
@@ -620,7 +804,7 @@
           </p>
 
           <p>
-            <img src="f5.jpg" alt="Foto KITA 2" class="photo-frame float-right">
+            <img src="f5.jpg" alt="Foto KITA 2" class="photo-frame float-right" onerror="this.style.display='none';">
             Kalau ditanya kenapa aku masih pilih kamu, jawabannya sederhana: karena dari banyaknya orang di dunia ini, hatiku tetap paling nyaman kalau sama kamu.
           </p>
         </div>
@@ -633,6 +817,8 @@
         <div class="dots-indicator">
           <span class="dot"></span>
           <span class="dot active"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
           <span class="dot"></span>
           <span class="dot"></span>
         </div>
@@ -654,9 +840,213 @@
 
       <div style="width: 100%;">
         <button class="btn-action" id="btnNextPuzzle" disabled onclick="changeSlideWithFlowers(4, event)">
-          Ketuk untuk Lanjut ➔
+          Lihat Kenangan Kita ➔
         </button>
         <div class="dots-indicator">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot active"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: GALERI KENANGAN TIMELINE -->
+    <div class="slide" id="slide4">
+      <div class="slide-content">
+        <p style="font-size: 0.75rem; letter-spacing: 2px; color: #c0738a; font-weight: 600; text-transform: uppercase;">— kenangan kecil —</p>
+        <h2 style="font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: #5a273e; margin-bottom: 5px;">Potongan cerita yang kusimpan baik-baik</h2>
+
+        <div class="timeline-container">
+          
+          <!-- Item 1 -->
+          <div class="timeline-item">
+            <div class="timeline-icon">🌸</div>
+            <div class="timeline-card">
+              <span class="timeline-tag">PERTEMUAN PERTAMA</span>
+              <div class="timeline-img-box">
+                <img src="m1.jpg" alt="Foto Kenangan 1" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div class="timeline-img-placeholder" style="display:none;">
+                  📷<br>taruh file bernama <b>m1.jpg</b>
+                </div>
+              </div>
+              <p class="timeline-desc">Jadi keinget waktu itu kamu malu malu fotbar sama aku.</p>
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="timeline-item">
+            <div class="timeline-icon">🌸</div>
+            <div class="timeline-card">
+              <span class="timeline-tag">NGEDATE PERTAMA</span>
+              <div class="timeline-img-box">
+                <img src="m2.jpg" alt="Foto Kenangan 2" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div class="timeline-img-placeholder" style="display:none;">
+                  📷<br>taruh file bernama <b>m2.jpg</b>
+                </div>
+              </div>
+              <p class="timeline-desc">Ngga perlu yang mewah,cukup eskrim dan kamu di samping ku.sederhana,tapi selalu bikin bahagia</p>
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="timeline-item">
+            <div class="timeline-icon">🌸</div>
+            <div class="timeline-card">
+              <span class="timeline-tag">MOMEN ULANG TAHUN</span>
+              <div class="timeline-img-box">
+                <img src="m3.jpg" alt="Foto Kenangan 3" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div class="timeline-img-placeholder" style="display:none;">
+                  📷<br>taruh file bernama <b>m3.jpg</b>
+                </div>
+              </div>
+              <p class="timeline-desc">Tiup lilin bareng dan buat harapan manis untuk masa depan.</p>
+            </div>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="timeline-item">
+            <div class="timeline-icon">🌸</div>
+            <div class="timeline-card">
+              <span class="timeline-tag">FOTO RANDOM</span>
+              <div class="timeline-img-box">
+                <img src="m4.jpg" alt="Foto Kenangan 4" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div class="timeline-img-placeholder" style="display:none;">
+                  📷<br>taruh file bernama <b>m4.jpg</b>
+                </div>
+              </div>
+              <p class="timeline-desc">Momen konyol tanpa jaim yang selalu bikin aku kangen.</p>
+            </div>
+          </div>
+
+          <!-- Item 5 -->
+          <div class="timeline-item">
+            <div class="timeline-icon">🌸</div>
+            <div class="timeline-card">
+              <span class="timeline-tag">PETUALANGAN KITA</span>
+              <div class="timeline-img-box">
+                <img src="m5.jpg" alt="Foto Kenangan 5" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div class="timeline-img-placeholder" style="display:none;">
+                  📷<br>taruh file bernama <b>m5.jpg</b>
+                </div>
+              </div>
+              <p class="timeline-desc">Terima kasih sudah berjalan jauh sejauh ini bersamaku.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div style="width: 100%;">
+        <button class="btn-action" onclick="changeSlideWithFlowers('Booth', event)">
+          Lihat Photo Booth 📸 ➔
+        </button>
+        <div class="dots-indicator">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot active"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE BARU: PHOTO BOOTH SLIDER (7 FOTO) -->
+    <div class="slide" id="slideBooth">
+      <div class="slide-content">
+        <h2 class="letter-header">Photo Booth Kita 📸</h2>
+        <p style="font-size: 0.8rem; color: #8c3a5c;">Geser untuk melihat momen lucu kita!</p>
+
+        <div class="booth-container">
+          <button class="booth-nav-btn prev" onclick="moveBoothSlide(-1)">❮</button>
+          
+          <div class="booth-slider-wrapper" id="boothSliderWrapper">
+            <div class="booth-slider" id="boothSlider">
+              
+              <!-- Foto Booth 1 -->
+              <div class="booth-slide-item">
+                <img src="b1.jpg" alt="Photo Booth 1" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="timeline-img-placeholder" style="display:none;">
+                  📷<br>taruh file bernama <b>b1.jpg</b>
+                </div>
+              </div>
+
+              <!-- Foto Booth 2 -->
+              <div class="booth-slide-item">
+                <img src="b2.jpg" alt="Photo Booth 2" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="timeline-img-placeholder" style="display:none;">
+                  📷<br>taruh file bernama <b>b2.jpg</b>
+                </div>
+              </div>
+
+              <!-- Foto Booth 3 -->
+              <div class="booth-slide-item">
+                <img src="b3.jpg" alt="Photo Booth 3" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="timeline-img-placeholder" style="display:none;">
+                  📷<br>taruh file bernama <b>b3.jpg</b>
+                </div>
+              </div>
+
+              <!-- Foto Booth 4 -->
+              <div class="booth-slide-item">
+                <img src="b4.jpg" alt="Photo Booth 4" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="timeline-img-placeholder" style="display:none;">
+                  📷<br>taruh file bernama <b>b4.jpg</b>
+                </div>
+              </div>
+
+              <!-- Foto Booth 5 -->
+              <div class="booth-slide-item">
+                <img src="b5.jpg" alt="Photo Booth 5" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="timeline-img-placeholder" style="display:none;">
+                  📷<br>taruh file bernama <b>b5.jpg</b>
+                </div>
+              </div>
+
+              <!-- Foto Booth 6 -->
+              <div class="booth-slide-item">
+                <img src="b6.jpg" alt="Photo Booth 6" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="timeline-img-placeholder" style="display:none;">
+                  📷<br>taruh file bernama <b>b6.jpg</b>
+                </div>
+              </div>
+
+              <!-- Foto Booth 7 -->
+              <div class="booth-slide-item">
+                <img src="b7.jpg" alt="Photo Booth 7" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="timeline-img-placeholder" style="display:none;">
+                  📷<br>taruh file bernama <b>b7.jpg</b>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <button class="booth-nav-btn next" onclick="moveBoothSlide(1)">❯</button>
+
+          <!-- Indicator Dots Slider -->
+          <div class="booth-dots" id="boothDots">
+            <span class="booth-dot active" onclick="goToBoothSlide(0)"></span>
+            <span class="booth-dot" onclick="goToBoothSlide(1)"></span>
+            <span class="booth-dot" onclick="goToBoothSlide(2)"></span>
+            <span class="booth-dot" onclick="goToBoothSlide(3)"></span>
+            <span class="booth-dot" onclick="goToBoothSlide(4)"></span>
+            <span class="booth-dot" onclick="goToBoothSlide(5)"></span>
+            <span class="booth-dot" onclick="goToBoothSlide(6)"></span>
+          </div>
+        </div>
+      </div>
+
+      <div style="width: 100%;">
+        <button class="btn-action" onclick="changeSlideWithFlowers(5, event)">
+          Lanjut ke Pesan Akhir 💌
+        </button>
+        <div class="dots-indicator">
+          <span class="dot"></span>
+          <span class="dot"></span>
           <span class="dot"></span>
           <span class="dot"></span>
           <span class="dot active"></span>
@@ -665,18 +1055,18 @@
       </div>
     </div>
 
-    <!-- SLIDE 4: PENUTUP -->
-    <div class="slide" id="slide4">
+    <!-- SLIDE 5: KATA UCAPAN PENUTUP -->
+    <div class="slide" id="slide5">
       <div class="slide-content">
-        <div class="big-heart" onclick="popHearts(event)">💖</div>
-        
-        <div class="quote-box">
-          "Terima kasih sudah memilih bertahan dan berjalan bersamaku. I love you so much, Zahratun Annisa!" ✨
-        </div>
+        <h2 class="letter-header">Terima Kasih, Sayang ❤️</h2>
 
-        <p style="font-size: 0.8rem; color: #b55d78;">
-          (Sentuh hati di atas untuk kejutan!)
-        </p>
+        <div class="closing-card">
+          <div class="big-heart" onclick="popHearts(event)">💖</div>
+          
+          <div class="quote-box">
+            "Terima kasih sudah memilih bertahan dan berjalan bersamaku sampai detik ini. Aku bersyukur punya kamu di hidupku. Happy Anniversary, I love you so much Zahratun Annisa!" ✨
+          </div>
+        </div>
       </div>
 
       <div style="width: 100%;">
@@ -684,6 +1074,8 @@
           🔄 Ulang dari Awal
         </button>
         <div class="dots-indicator">
+          <span class="dot"></span>
+          <span class="dot"></span>
           <span class="dot"></span>
           <span class="dot"></span>
           <span class="dot"></span>
@@ -703,10 +1095,11 @@
       player = new YT.Player('ytPlayer', {
         height: '0',
         width: '0',
-        videoId: 'BjHJjjlubmE', // YouTube ID: mrld - An Art Gallery Could Never Be As Unique As You
+        videoId: 'BjHJjjlubmE',
         playerVars: {
           'autoplay': 0,
           'controls': 0,
+          'start': 4,
           'loop': 1,
           'playlist': 'BjHJjjlubmE'
         }
@@ -715,6 +1108,7 @@
 
     function playYouTubeMusic() {
       if (player && typeof player.playVideo === 'function' && !isPlaying) {
+        player.seekTo(4, true);
         player.playVideo();
         isPlaying = true;
         document.getElementById('musicToggle').innerText = '🎵';
@@ -777,10 +1171,9 @@
 
     function verifyPin() {
       if (currentPin === CORRECT_PIN) {
-        // AUTOPLAY LAGU YOUTUBE SETELAH PIN BENAR & MASUK SLIDE 2
         playYouTubeMusic();
         changeSlideWithFlowers(2, null);
-        setTimeout(clearPin, 500);
+        setTimeout(clearPin, 400);
       } else {
         const pinBox = document.getElementById('pinBox');
         document.getElementById('pinErrorMsg').innerText = "PIN Salah! Coba lagi ❤";
@@ -792,9 +1185,8 @@
       }
     }
 
-    // Source Foto Puzzle (f1)
+    // Puzzle System
     const puzzleImageSrc = 'f1.jpg'; 
-
     let puzzleState = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     let selectedPieceIndex = null;
     let isSolved = false;
@@ -855,7 +1247,6 @@
           document.getElementById('puzzleBoard').classList.add('solved');
           document.getElementById('btnNextPuzzle').disabled = false;
           document.getElementById('puzzleSuccessMsg').style.opacity = '1';
-          
           triggerCelebration();
         }
       }
@@ -867,59 +1258,74 @@
     }
 
     function triggerCelebration() {
-      confetti({
-        particleCount: 100,
-        spread: 120,
-        origin: { y: 0.6 }
-      });
-
-      const duration = 3 * 1000;
-      const animationEnd = Date.now() + duration;
-      const defaults = { startVelocity: 35, spread: 360, ticks: 60, zIndex: 9999 };
-
-      function randomInRange(min, max) {
-        return Math.random() * (max - min) + min;
-      }
-
-      const interval = setInterval(function() {
-        const timeLeft = animationEnd - Date.now();
-
-        if (timeLeft <= 0) {
-          return clearInterval(interval);
-        }
-
-        const particleCount = 60 * (timeLeft / duration);
-
-        confetti({
-          ...defaults,
-          particleCount,
-          origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
-          colors: ['#ff4d6d', '#ff758f', '#ffb3c6', '#ffffff', '#ffd166']
-        });
-        confetti({
-          ...defaults,
-          particleCount,
-          origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
-          colors: ['#ff4d6d', '#ff758f', '#ffb3c6', '#ffffff', '#ffd166']
-        });
-      }, 250);
+      confetti({ particleCount: 80, spread: 100, origin: { y: 0.6 } });
     }
 
     initPuzzle();
 
+    // Photo Booth Slider Logic
+    let currentBoothIndex = 0;
+    const totalBoothSlides = 7;
+
+    function updateBoothSlider() {
+      const slider = document.getElementById('boothSlider');
+      slider.style.transform = `translateX(-${currentBoothIndex * 100}%)`;
+
+      const dots = document.querySelectorAll('.booth-dot');
+      dots.forEach((dot, i) => {
+        if (i === currentBoothIndex) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+    }
+
+    function moveBoothSlide(step) {
+      currentBoothIndex += step;
+      if (currentBoothIndex < 0) currentBoothIndex = totalBoothSlides - 1;
+      if (currentBoothIndex >= totalBoothSlides) currentBoothIndex = 0;
+      updateBoothSlider();
+    }
+
+    function goToBoothSlide(index) {
+      currentBoothIndex = index;
+      updateBoothSlider();
+    }
+
+    // Touch Support Swipe untuk Photo Booth Slider
+    let startX = 0;
+    const wrapper = document.getElementById('boothSliderWrapper');
+
+    wrapper.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+    }, { passive: true });
+
+    wrapper.addEventListener('touchend', (e) => {
+      let endX = e.changedTouches[0].clientX;
+      if (startX - endX > 40) {
+        moveBoothSlide(1); // Swipe kiri -> Next
+      } else if (endX - startX > 40) {
+        moveBoothSlide(-1); // Swipe kanan -> Prev
+      }
+    }, { passive: true });
+
+    // Slide Switching Function & Transition
     function changeSlideWithFlowers(targetSlide, event) {
       if (targetSlide === 1) {
         initPuzzle();
         clearPin();
+        goToBoothSlide(0);
       }
 
+      // Smooth transition dengan kelopak bunga bertebaran
       const layer = document.getElementById('flower-transition-layer');
-      const flowers = ['🌸', '🌺', '🌷', '🌹', '✨', '💕', '🍃'];
+      const flowers = ['🌸', '🌺', '🌷', '✨', '💕'];
       
       const startX = event ? event.clientX : window.innerWidth / 2;
       const startY = event ? event.clientY : window.innerHeight / 2;
 
-      for (let i = 0; i < 25; i++) {
+      for (let i = 0; i < 16; i++) {
         const petal = document.createElement('div');
         petal.className = 'flower-petal';
         petal.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
@@ -927,7 +1333,7 @@
         petal.style.top = startY + 'px';
 
         const angle = Math.random() * Math.PI * 2;
-        const distance = Math.random() * 250 + 100;
+        const distance = Math.random() * 200 + 60;
         const twX = Math.cos(angle) * distance + 'px';
         const twY = Math.sin(angle) * distance + 'px';
         const rot = (Math.random() * 360) + 'deg';
@@ -937,41 +1343,44 @@
         petal.style.setProperty('--rot', rot);
 
         layer.appendChild(petal);
-
         setTimeout(() => petal.remove(), 1200);
       }
 
       setTimeout(() => {
-        document.querySelectorAll('.slide').forEach(slide => {
-          slide.classList.remove('active');
-        });
+        document.querySelectorAll('.slide').forEach(slide => slide.classList.remove('active'));
 
         let targetElem;
         if (targetSlide === 'pin') {
           targetElem = document.getElementById('slidePin');
+        } else if (targetSlide === 'Booth') {
+          targetElem = document.getElementById('slideBooth');
         } else {
           targetElem = document.getElementById('slide' + targetSlide);
         }
 
         if (targetElem) {
           targetElem.classList.add('active');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-      }, 300);
+      }, 200);
     }
 
+    // Generator Partikel Latar Belakang
     function createFloatingHeart() {
       const container = document.getElementById('hearts-bg');
+      if (container.children.length > 12) return;
+
       const heart = document.createElement('div');
       heart.classList.add('heart-particle');
-      heart.innerHTML = ['🌸', '💕', '💖', '✨', '💗'][Math.floor(Math.random() * 5)];
+      heart.innerHTML = ['🌸', '💕', '💖', '✨'][Math.floor(Math.random() * 4)];
       heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.animationDuration = (Math.random() * 4 + 5) + 's';
+      heart.style.animationDuration = (Math.random() * 3 + 6) + 's';
       container.appendChild(heart);
 
-      setTimeout(() => heart.remove(), 9000);
+      setTimeout(() => heart.remove(), 8000);
     }
 
-    setInterval(createFloatingHeart, 600);
+    setInterval(createFloatingHeart, 800);
 
     function popHearts(event) {
       triggerCelebration();
